@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from pandas.core.groupby.generic import DataFrameGroupBy
 from pathlib import Path
 
@@ -29,10 +30,12 @@ class ReadCsv:
         return self.df
 
     def read_group(self, group_id: int) -> pd.DataFrame:
+        x = self._get_grouped().get_group(group_id)
         return self._get_grouped().get_group(group_id)
 
     def get_groups(self) -> list[int]:
         # print(self._get_grouped().keys())
+        # print([key for key, item in self._get_grouped()])
         return [key for key, item in self._get_grouped()]
 
     def _get_grouped(self) -> DataFrameGroupBy:
