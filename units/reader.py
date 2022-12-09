@@ -1,5 +1,6 @@
 import pandas as pd
 from pandas.core.groupby.generic import DataFrameGroupBy
+from pathlib import Path
 
 
 class ReadCsv:
@@ -12,12 +13,17 @@ class ReadCsv:
             self,
             filename: str,
             sep: str = ';') -> None:
-        self.df = pd.read_csv(filename, sep=sep)
         self.sep = sep
         self.filename = filename
+        self._load()
+
+    def _load(self) -> None:
+        if not Path(self.filename).is_file():
+            raise FileNotFoundError(f'Файл {self.filename} не найден')
+        self.df = pd.read_csv(self.filename, sep=self.sep)
 
     def update(self) -> None:
-        self.df = pd.read_csv(self.filename, sep=self.sep)
+        self._load()
 
     def read(self) -> pd.DataFrame:
         return self.df

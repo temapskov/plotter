@@ -1,6 +1,6 @@
+import sys
 import datetime
 from units.reader import ReadCsv
-import tomllib
 
 import dash
 from dash.dependencies import Input, Output
@@ -10,11 +10,7 @@ import plotly.express as px
 
 app = dash.Dash(__name__)
 
-try:
-    config = tomllib.load(open('config.toml', 'rb'))
-    csv = ReadCsv(config.get('input_file')) # type: ignore
-except tomllib.TOMLDecodeError:
-    tomllib.TOMLDecodeError('Ошибка чтения настроек')
+csv = ReadCsv(sys.argv[1])
 
 
 def serve_layout():
@@ -58,4 +54,6 @@ def display_group(group_id: int):
 
 
 if __name__ == '__main__':
+    for param in sys.argv:
+        print(param)
     app.run_server(debug=False)
