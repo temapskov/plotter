@@ -31,7 +31,7 @@ class ReadCsv:
     def read_group(self, group_id: int) -> pd.DataFrame:
         return self._get_grouped().get_group(group_id)
 
-    def get_groups(self) -> list:
+    def get_groups(self) -> list[int]:
         # print(self._get_grouped().keys())
         return [key for key, item in self._get_grouped()]
 

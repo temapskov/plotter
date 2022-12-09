@@ -1,4 +1,3 @@
-import pytest
 from pandas.core.groupby.generic import DataFrameGroupBy
 from units.reader import ReadCsv
 
